@@ -1,0 +1,12 @@
+# Ignore all node_modules
+**/node_modules/
+
+# Ignore all env files
+**/.env
+**/.env.*
+
+# Ignore log files
+*.log
+
+# Ignore OS and editor junk
+.DS_Store
