@@ -28,15 +28,25 @@ app.use(cors({
   optionsSuccessStatus: 204
 }));*/
 
+
+const allowedOrigins = [
+  "http://localhost:5173",             // local dev
+  "https://dry-af.vercel.app",         // your deployed frontend
+];
+
 app.use(
   cors({
-    origin: ["http://localhost:5173", "https://dry-af.vercel.app/"],
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
 );
-
-
 // ✅ Preflight handled by CORS middleware above (Express 5 route parser dislikes "*")
 
 app.use(express.json());
